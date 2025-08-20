@@ -21,17 +21,17 @@ struct NODE
 {
     NV data;
     NODE* pNext;
-}
-typedef NODE* LIST;
+};
+typedef NODE* list;
 NODE* create_node(NV x)
 {
     NODE* p = new NODE;
     if( p == NULL)
     return NULL;
-    p -> data = NV;
+    p -> data = x;
     p -> pNext = NULL;
 }
-void create list (list &l)
+void create_list (list &l)
 {
     l = NULL;
 }
