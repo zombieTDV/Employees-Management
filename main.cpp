@@ -1,11 +1,37 @@
 #include <iostream>
-#include <string>
-
-using std::cout;
-using std::cin;
-
-int main() {
-    cout << "Hello world!\n";
-    cout << "...";
-    return 0;
+using namespace std;
+#include<string>
+#include<cstring>
+struct NV
+{
+    string idNV;
+    string hoTenNV;
+    string ngaySinh;
+    string emailNV;
+    string diaChiNV;
+    int sdtNV;
+    int soNgayCong;
+    float luongNgay;
+    float thucLinh;
+    void tinhThucLinh(){
+        thucLinh = soNgayCong * luongNgay;
+    }
+};
+struct NODE
+{
+    NV data;
+    NODE* pNext;
+}
+typedef NODE* LIST;
+NODE* create_node(NV x)
+{
+    NODE* p = new NODE;
+    if( p == NULL)
+    return NULL;
+    p -> data = NV;
+    p -> pNext = NULL;
+}
+void create list (list &l)
+{
+    l = NULL;
 }
