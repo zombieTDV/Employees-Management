@@ -10,7 +10,7 @@ cd Employees-Management
 
 ### Step 2: Run the .bat file
 ```bash
-    compile.bat
+compile.bat
 ```
 
 ## Project Structure
