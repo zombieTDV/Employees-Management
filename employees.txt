@@ -1,0 +1,16 @@
+E001
+Alice
+1 1 1990
+alice@mail.com
+123 Street
+0123456789
+20
+100
+E002
+Bob
+2 2 1992
+bob@mail.com
+456 Avenue
+0987654321
+18
+120
