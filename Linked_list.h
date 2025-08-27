@@ -1,13 +1,14 @@
 #pragma once;
 #include "Employee.h"
 #include <sstream>
+using namespace std;
 
 struct Node
 {
     Employee data;
     Node* next;
 };
-
+typedef Node* node;
 
 Node* createNode(Employee emp)
 {
@@ -18,8 +19,8 @@ Node* createNode(Employee emp)
     p->next = NULL;
     return p;
 }
-//in dl ra m�n h�nh
-void display_an_empoyee(Employee emp)
+//in dl ra màn hình
+void display_an_employee(Employee emp)
 {
        cout << "Employee code: " << emp.employeeID << endl;
        cout << "Employee name: " << emp.name << endl;
@@ -36,27 +37,24 @@ void display(Node* head)
        Node* p = head;
        while( p != NULL)
        {
-              display_an_empoyee(p->data);
+              display_an_employee(p->data);
               p = p->next;
        }
 }
 
 
-void standardize(string& s) {
+string standardize(string& s) {
     stringstream ss(s);
     string word;
     s.clear(); //xóa chuỗi s -> s trống
 
     while (ss >> word) {           // stringstream ss tự động bỏ qua 'tất cả' khoảng trống (space) và lấy ra từng từ liên tiếp.
+        word[0] = toupper(word[0]);
         if (!s.empty()) {
             s += ' '; // kiểm tra s có trống? Nếu không, nghĩa là s không phải đầu chuỗi -> thêm khoảng trắng
         }
     }
 }
-
-
-
-
 
 void writeListToFile(Node* head, const string& filename) {
     ofstream out(filename);
@@ -119,4 +117,37 @@ Node* readListFromFile(const string& filename) {
     }
     in.close();
     return head;
+}
+// Tìm theo ID
+void findByID(node head, const string& employeeId) {
+    node p = head;
+    bool found = false;
+    while (p != NULL) {
+        if (p->data.employeeID == employeeId) {
+            cout << "Employee:\n";
+            display_an_employee(p->data);
+            found = true;
+            break;
+        }
+        p = p->next;
+    }
+    if (!found) {
+        cout << "There is no employee with that ID: " << employeeId << endl;
+    }
+}
+// Tìm theo tên
+void findByName(node head, string name) {
+    string target = standardize(name);
+    node p = head;
+    bool found = false;
+    while (p != NULL) {
+        if (p->data.name == target) {  // so sánh tên chuẩn hoá
+            display_an_employee(p->data);
+            found = true;
+        }
+        p = p->next;
+    }
+    if (!found) {
+        cout << "There is no employee with that name: " << target << endl;
+    }
 }
