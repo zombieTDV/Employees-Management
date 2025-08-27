@@ -1,9 +1,12 @@
 #pragma once;
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <cstring>
+
 using namespace std;
+
 struct Date
 {
  int day, month, year;
