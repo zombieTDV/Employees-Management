@@ -7,23 +7,22 @@ struct Node
     Node* next;
 };
 
-typedef Node* node;
 
-node createNode(Employee emp)
+Node* createNode(Employee emp)
 {
-    node p = new Node;
+    Node* p = new Node;
     if (p == NULL)
         return NULL;
     p->data = emp;
     p->next = NULL;
     return p;
 }
-//in dl ra màn hình
-void display_an_empoyee(Empoyee emp)
+//in dl ra mï¿½n hï¿½nh
+void display_an_empoyee(Employee emp)
 {
        cout << "Employee code: " << emp.employeeID << endl;
        cout << "Employee name: " << emp.name << endl;
-       cout << "Date of birth: " << emp.birthDate << endl;
+       cout << "Date of birth: " << emp.birthDate.day << "/" << emp.birthDate.month << "/" << emp.birthDate.year << endl;
        cout << "Email: " << emp.email << endl;
        cout << "Contact address: " << emp.address << endl;
        cout << "Phone number: " << emp.phone << endl;
@@ -31,19 +30,12 @@ void display_an_empoyee(Empoyee emp)
        cout << "Daily wage: " << emp.dailySalary << endl;
        cout << "Total income: " << emp.workingDays*emp.dailySalary << endl;
 }
-void display(node head)
+void display(Node* head)
 {
-       node p = head;
+       Node* p = head;
        while( p != NULL)
        {
               display_an_empoyee(p->data);
               p = p->next;
        }
-}
-
-
-int main()
-{
-     node head = NULL;
-
 }
