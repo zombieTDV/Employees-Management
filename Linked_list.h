@@ -1,6 +1,8 @@
-#pragma once;
+#pragma once
 #include "Employee.h"
 #include <sstream>
+#include <string>
+
 using namespace std;
 
 struct Node
@@ -43,6 +45,7 @@ void display(Node* head)
 }
 
 
+
 string standardize(string& s) {
     stringstream ss(s);
     string word;
@@ -53,9 +56,11 @@ string standardize(string& s) {
         if (!s.empty()) {
             s += ' '; // kiểm tra s có trống? Nếu không, nghĩa là s không phải đầu chuỗi -> thêm khoảng trắng
         }
+        s += word;
     }
 }
 
+//Ghi toàn bộ danh sách liên kết nhân viên ra file
 void writeListToFile(Node* head, const string& filename) {
     ofstream out(filename);
     if (!out) {
@@ -78,7 +83,7 @@ void writeListToFile(Node* head, const string& filename) {
 }
 
 
-
+//Đọc dữ liệu từ file
 Node* readListFromFile(const string& filename) {
     ifstream in(filename);
     if (!in) {
@@ -88,7 +93,7 @@ Node* readListFromFile(const string& filename) {
     Node* head = nullptr; //Khởi tạo con trỏ vào Node đầu tiên
     Node* pNode = nullptr; //Khởi tạo con trỏ cho để truy cập các Node dữ liệu.
 
-    while (true) { //Khởi tạo dữ liệu Nhân Viên, đọc lần lượt các dòng từ file .txt và đặc các thuộc tính cho nhân viên 
+    while (true) { //Khởi tạo dữ liệu Nhân Viên, đọc lần lượt các dòng từ file .txt và đặc các thuộc tính cho nhân viên
         Employee emp;
         if (!getline(in, emp.employeeID)){
             cout << "Error when read from file." << '\n';
@@ -105,12 +110,12 @@ Node* readListFromFile(const string& filename) {
         in.ignore();
 
         Node* newNode = new Node{emp, nullptr}; //Tạo Node mới với dữ liệu nhân viên vừa đọc.
-        if (head == nullptr){ 
+        if (head == nullptr){
             head = newNode;
             pNode = newNode;
         }
         else{ //Đặt node->next = newNode và chuyển pNode = newNode
-            pNode->next = newNode; 
+            pNode->next = newNode;
             pNode = newNode;
         }
 

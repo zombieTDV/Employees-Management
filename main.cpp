@@ -14,7 +14,10 @@ int main(){
 
     // cout << listFromFile->data.employeeID << '\n';
     // cout << listFromFile->next->data.employeeID << '\n';
-    string S = "  Nuyeng  VAN   AH   ";
+    Node* head = NULL;
+    string S = "  nuyeng  VAN   aH   ";
     standardize(S);
+    cout << S << '\n';
+    addEmp(head);
     return 0;
 }
