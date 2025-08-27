@@ -4,27 +4,20 @@
 #include <string>
 #include <cstring>
 using namespace std;
+struct Date
+{
+ int day, month, year;
+};
 
 struct Employee
 {
     string employeeID;
-
-    string lastName;
-    string firstName;
-
-    string birthDate;
-
+    string name;
+    Date birthDate;
     string email;
-
     string address;
-    
-    int phoneNumber;
-    
+    string phone;
     int workingDays;
     float dailySalary;
-    float netSalary;
-
-    void calculateNetSalary() {
-        netSalary = workingDays * dailySalary;
-    }
+    //float netSalary: t bỏ cái này nha, biến này chỉ dùng để tính kh cần khai báo
 };
