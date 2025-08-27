@@ -64,7 +64,7 @@ void writeListToFile(Node* head, const string& filename) {
         cerr << "Cannot open file for writing\n";
         return;
     }
-    for (Node* cur = head; cur != nullptr; cur = cur->next) {
+    for (Node* cur = head; cur != nullptr; cur = cur->next) { //Lần lượt đọc các thuộc tính của Các Node và viết vào các dòng của file txt
         out << cur->data.employeeID << '\n'
             << cur->data.name << '\n'
             << cur->data.birthDate.day << ' '
@@ -87,10 +87,10 @@ Node* readListFromFile(const string& filename) {
         cerr << "Cannot open file for reading\n";
         return nullptr;
     }
-    Node* head = nullptr;
-    Node* tail = nullptr;
+    Node* head = nullptr; //Khởi tạo con trỏ vào Node đầu tiên
+    Node* pNode = nullptr;
 
-    while (true) {
+    while (true) { //Khởi tạo dữ liệu Nhân Viên, đọc lần lượt các dòng từ file .txt và đặc các thuộc tính cho nhân viên 
         Employee emp;
         if (!getline(in, emp.employeeID)) break;
         getline(in, emp.name);
@@ -103,12 +103,16 @@ Node* readListFromFile(const string& filename) {
         in >> emp.dailySalary;
         in.ignore();
 
-        Node* newNode = new Node{emp, nullptr};
-        if (!head) head = tail = newNode;
-        else {
-            tail->next = newNode;
-            tail = newNode;
+        Node* newNode = new Node{emp, nullptr}; //Tạo Node mới với dữ liệu nhân viên vừa đọc.
+        if (head == nullptr){ 
+            head = newNode;
+            pNode = newNode;
         }
+        else{ //Đặt node->next = newNode và chuyển pNode = newNode
+            pNode->next = newNode; 
+            pNode = newNode;
+        }
+
     }
     in.close();
     return head;
