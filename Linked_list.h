@@ -1,5 +1,6 @@
 #pragma once;
 #include "Employee.h"
+#include <sstream>
 
 struct Node
 {
@@ -39,6 +40,22 @@ void display(Node* head)
               p = p->next;
        }
 }
+
+
+void standardize(string& s) {
+    stringstream ss(s);
+    string word;
+    s.clear(); //xóa chuỗi s -> s trống
+
+    while (ss >> word) {           // stringstream ss tự động bỏ qua 'tất cả' khoảng trống (space) và lấy ra từng từ liên tiếp.
+        if (!s.empty()) {
+            s += ' '; // kiểm tra s có trống? Nếu không, nghĩa là s không phải đầu chuỗi -> thêm khoảng trắng
+        }
+    }
+}
+
+
+
 
 
 void writeListToFile(Node* head, const string& filename) {
