@@ -1,7 +1,6 @@
 #include "Linked_list.h"
 
 int main(){
-    // Create some test data
     Node* head = new Node{
         {"E001","Alice",{1,1,1990},"alice@mail.com","123 Street","0123456789",20,100.0f}, nullptr
     };
@@ -12,7 +11,5 @@ int main(){
     writeListToFile(head, "employees.txt");
 
     Node* listFromFile = readListFromFile("employees.txt");
-    // You can print the loaded list here to verify
-
     return 0;
 }

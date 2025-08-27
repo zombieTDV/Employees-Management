@@ -78,13 +78,13 @@ Node* readListFromFile(const string& filename) {
         if (!getline(in, emp.employeeID)) break;
         getline(in, emp.name);
         in >> emp.birthDate.day >> emp.birthDate.month >> emp.birthDate.year;
-        in.ignore(); // skip the newline after date line
+        in.ignore();
         getline(in, emp.email);
         getline(in, emp.address);
         getline(in, emp.phone);
         in >> emp.workingDays;
         in >> emp.dailySalary;
-        in.ignore(); // skip newline after dailySalary
+        in.ignore();
 
         Node* newNode = new Node{emp, nullptr};
         if (!head) head = tail = newNode;
