@@ -48,7 +48,7 @@ void standardize(string& s) {
     s.clear(); //xóa chuỗi s -> s trống
 
     while (ss >> word) {           // stringstream ss tự động bỏ qua 'tất cả' khoảng trống (space) và lấy ra từng từ liên tiếp.
-        word[0] = toupper(static_cast<unsigned char>(word[0]));
+        word[0] = toupper(word[0]);
         if (!s.empty()) {
             s += ' '; // kiểm tra s có trống? Nếu không, nghĩa là s không phải đầu chuỗi -> thêm khoảng trắng
         }
