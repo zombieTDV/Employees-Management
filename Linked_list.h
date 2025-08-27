@@ -88,11 +88,14 @@ Node* readListFromFile(const string& filename) {
         return nullptr;
     }
     Node* head = nullptr; //Khởi tạo con trỏ vào Node đầu tiên
-    Node* pNode = nullptr;
+    Node* pNode = nullptr; //Khởi tạo con trỏ cho để truy cập các Node dữ liệu.
 
     while (true) { //Khởi tạo dữ liệu Nhân Viên, đọc lần lượt các dòng từ file .txt và đặc các thuộc tính cho nhân viên 
         Employee emp;
-        if (!getline(in, emp.employeeID)) break;
+        if (!getline(in, emp.employeeID)){
+            cout << "Error when read from file." << '\n';
+            break;
+        };
         getline(in, emp.name);
         in >> emp.birthDate.day >> emp.birthDate.month >> emp.birthDate.year;
         in.ignore();
