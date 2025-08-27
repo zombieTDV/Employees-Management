@@ -14,7 +14,8 @@ int main(){
 
     // cout << listFromFile->data.employeeID << '\n';
     // cout << listFromFile->next->data.employeeID << '\n';
-    string S = "  Nuyeng  VAN   AH   ";
+    string S = "  nuyeng  VAN   aH   ";
     standardize(S);
+    cout << S << '\n';
     return 0;
 }
