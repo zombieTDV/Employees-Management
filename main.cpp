@@ -11,5 +11,8 @@ int main(){
     writeListToFile(head, "employees.txt");
 
     Node* listFromFile = readListFromFile("employees.txt");
+
+    cout << listFromFile->data.employeeID << '\n';
+    cout << listFromFile->next->data.employeeID << '\n';
     return 0;
 }
