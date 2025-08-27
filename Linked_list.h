@@ -45,19 +45,23 @@ void display(Node* head)
 }
 
 
-
-string standardize(string& s) {
+// chuẩn hoá
+string standardize(string s) {
     stringstream ss(s);
     string word;
     s.clear(); //xóa chuỗi s -> s trống
 
     while (ss >> word) {           // stringstream ss tự động bỏ qua 'tất cả' khoảng trống (space) và lấy ra từng từ liên tiếp.
         word[0] = toupper(word[0]);
+        for (size_t i = 1; i < word.size(); i++) {
+        word[i] = tolower(word[i]); 
+        }
         if (!s.empty()) {
             s += ' '; // kiểm tra s có trống? Nếu không, nghĩa là s không phải đầu chuỗi -> thêm khoảng trắng
         }
         s += word;
     }
+    return s;
 }
 
 //Ghi toàn bộ danh sách liên kết nhân viên ra file
