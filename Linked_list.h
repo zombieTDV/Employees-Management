@@ -2,6 +2,7 @@
 #include "Employee.h"
 #include <sstream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ Node* createNode(Employee emp)
 
 
 //kich thuoc của node
-int Size(Node* a){
+int Size(node a){
 	int cnt = 0;
 	while(a != NULL){
 		++cnt;
@@ -32,7 +33,7 @@ int Size(Node* a){
 
 
 
-//in dl ra màn hình
+//in dl ra màn hình cua 1 nv
 void display_an_employee(Employee emp)
 {
        cout << "Employee code: " << emp.employeeID << endl;
@@ -46,10 +47,35 @@ void display_an_employee(Employee emp)
        cout << "Total income: " << emp.workingDays*emp.dailySalary << endl;
 }
 
-void display(LIST& list) {
-    Node* p = list.head;
+void display(node &head) {
+    if (head == NULL) {
+        cout << "Employee list is empty." << endl;
+        return;
+    }
+    cout << left << setw(10) << "Emp ID"
+         << left << setw(25) << "Full Name"
+         << left << setw(15) << "Birthdate"
+         << left << setw(25) << "Email"
+         << left << setw(25) << "Address"
+         << left << setw(15) << "Phone"
+         << left << setw(15) << "Work Days"
+         << left << setw(15) << "Daily wage"
+         << left << setw(15) << "Total income" << endl;
+    cout << setfill('-') << setw(165) << "" << setfill(' ') << endl;
+
+    node p = head;
     while (p != NULL) {
-        display_an_employee(p->data); // Gọi hàm để in thông tin một nhân viên
+        cout << left << setw(10) << p->data.employeeID
+             << left << setw(25) << p->data.name
+             << left << setw(2) << p->data.birthDate.day << "/"
+             << left << setw(2) << p->data.birthDate.month << "/"
+             << left << setw(7) << p->data.birthDate.year
+             << left << setw(25) << p->data.email
+             << left << setw(25) << p->data.address
+             << left << setw(15) << p->data.phone
+             << left << setw(20) << p->data.workingDays
+             << left << setw(15) << p->data.dailySalary
+             << left << setw(15) << p->data.workingDays * p->data.dailySalary << endl;
         p = p->next;
     }
 }
@@ -137,56 +163,55 @@ Node* readListFromFile(const string& filename) {
     return head;
 }
 // Tìm theo ID
-void findByID(node head, const string& employeeId) {
-    node p = head;
-    bool found = false;
+node findByID(node a, const string& id) {
+    node p = a;
     while (p != NULL) {
-        if (p->data.employeeID == employeeId) {
-            cout << "Employee:\n";
-            display_an_employee(p->data);
-            found = true;
-            break;
+        if (p->data.employeeID == id) {
+            return p; //Trả về con trỏ
         }
         p = p->next;
     }
-    if (!found) {
-        cout << "There is no employee with that ID: " << employeeId << endl;
-    };
+    return NULL;//kh tìm thấy
 }
 /*(9). XÓA 1 NHÂN VIÊN THEO MÃ
    9.1. Hàm trả về thêm thông tin node đứng trước node cần tìm( hỗ trợ thao tác xóa )
    9.2. Hàm xóa nv */
-node searchID2(LIST l,node &q, string id)
+node searchID2(node head, node &q, string id)
 {
-       node p = l.head;
-       q = NULL;
-       while(p != NULL)
-       {
-              if(p->data.employeeID == id)
-                     break;
-              q = p; //lưu node đứng trước
-              p = p->next; //nhảy tới node tiếp theo
-       }
-       return p;
+    node p = head;
+    q = NULL;
+    while(p != NULL)
+    {
+        if(p->data.employeeID == id)
+            break;
+        q = p; // Lưu nút đứng trước
+        p = p->next; // Nhảy tới nút tiếp theo
+    }
+    return p;
 }
-void deleteID(LIST &l)
+void deleteID(node &head)
 {
-       string x;
-       cout << "Enter the employee ID to search: "; getline(cin, x);
-       node q = NULL;
-       node p = searchID2(l, q, x);
-       if(p == NULL)
-       {
-              cout << "Not found!\n";
-              return;
-       }
-       if(q != NULL){
-              q->next = p->next;
-       } else {
-              l.head = p->next;
-       }
-       cout << "Successfully deleted!\n";
-       display(l);
+    string x;
+    cout << "Enter the employee ID to search: "; getline(cin, x);
+    node q = NULL;
+    node p = searchID2(head, q, x);
+    if(p == NULL)
+    {
+        cout << "Not found!\n";
+        return;
+    }
+
+    if(q != NULL){
+        q->next = p->next;
+    } else {
+        head = p->next; // Cập nhật head nếu xóa nút đầu tiên
+    }
+
+    delete p;
+
+    cout << "Successfully deleted!\n";
+
+    display(head);
 }
 /* (10). Thêm mới nhân viên
    10.1. Hàm ktra dl
@@ -195,7 +220,7 @@ void deleteID(LIST &l)
    10.4. Thêm nhân viên vào danh sách */
 
 //10.1.a Ktra mã nv trùng kh?
-bool checkID(Node *a, const string &id)
+bool checkID(node a, const string &id)
 {
        Node* p = a;
        while(p != NULL)
@@ -252,19 +277,15 @@ bool checkPhone(const string &numberPhone)
        }
        return true; // hợp lệ
 }
-//10.1.d Ktra các gtri: số ngày công trong tháng, lương
-bool checkWage(int workingDays, double dailySalary)
+//10.1.d Ktra các gtri: số ngày công trong tháng
+bool checkWage(int workingDays)
 {
        // ngày công [0,31]
-       if(workingDays < 0 || workingDays > 31)
-       {
-              return false;
-       }
-       if(dailySalary <= 0)
-       {
-              return false;
-       }
-       return true;
+       return !(workingDays < 0 || workingDays > 31);
+}
+bool checkWage(double dailySalary)
+{
+       return dailySalary > 0;
 }
 //10.2.a Thêm vào đầu danh sách liên kết
 void insertFirst(Node* &a, Employee x){
@@ -312,21 +333,21 @@ void insertMiddle(Node* &a, Employee x, int pos){
 	p->next = tmp;
 }
 //10.3 Nhap nhan vien
-Employee inputEmp(Node * head)
+Employee inputEmp(node a)
 {
        Employee e;
 
        //Nhap ma
        do{
               cout << "Enter employee code: "; getline(cin, e.employeeID);
-              if(!checkID(head, e.employeeID))
+              if(!checkID(a, e.employeeID))
               {
                      cout << "Error: Employee code already exists!\n";
               }
-       } while (!checkID(head, e.employeeID));
+       } while (!checkID(a, e.employeeID));
        //Nhap ho ten
-              cout << "Enter full name: ";
-              getline(cin, e.name);
+       cout << "Enter full name: ";
+       getline(cin, e.name);
        //Nhap ngay sinh
        string birth;
        do {
@@ -352,25 +373,33 @@ Employee inputEmp(Node * head)
                      cout << "Error: Invalid!\n";
               }
        } while(!checkPhone(e.phone));
-       //Nhap ngay cong va luong
-       do{
-              cout << "Enter working days: "; cin >> e.workingDays;
-              cout << "Enter daily salary: "; cin >> e.dailySalary;
-              if(!checkWage(e.workingDays, e.dailySalary))
-              {
-                     cout << "Error: Invalid!\n";
+       //Nhap ngay cong
+       do {
+              cout << "Enter working days: ";
+              cin >> e.workingDays;
+              if (!checkWage(e.workingDays)) {
+                     cout << "Error: Working days must be between 0 and 31!\n";
               }
-       } while(!checkWage(e.workingDays, e.dailySalary));
+         } while (!checkWage(e.workingDays));
+       //Nhap ngay luong
+       do {
+             cout << "Enter daily salary: ";
+             cin >> e.dailySalary;
+             if (!checkWage(e.dailySalary)) {
+                    cout << "Error: Daily salary must be greater than 0!\n";
+             }
+       } while (!checkWage(e.dailySalary));
 
-       cin.ignore();
+
+       cin.ignore(); // Xóa \n còn trong bộ đệm
        cout << "Total income: " << e.workingDays * e.dailySalary << endl;
-
        return e;
+
 }
 //10.4. Thêm nhân viên vào danh sách
-void addEmp(LIST &l)
+void addEmp(node &head)
 {
-       Employee e = inputEmp(l.head);
+       Employee e = inputEmp(head);
        //menu vtri chen
        while(1){
               cout << "\nWHERE DO YOU WANT TO INSERT THE NEW EMPLOYEE ?\n";
@@ -383,29 +412,109 @@ void addEmp(LIST &l)
 
               if(choice == 1)
               {
-                     insertFirst(l.head, e);
+                     insertFirst(head, e);
                      break;
               }
                else if(choice == 2)
               {
-                     insertLast(l.head, e);
+                     insertLast(head, e);
                      break;
               }
               else if(choice == 3)
               {
                      int pos; cout << "Enter the position to insert: "; cin >> pos;
-                     insertMiddle(l.head, e, pos);
+                     insertMiddle(head, e, pos);
                      break;
               }
               else {
-                     cout << "Invalid choice. Try again.\n";
+                     cout << "Invalid choice. Try again.\n"; break;
               }
        }
 
 }
+/* (11). SỬA THÔNG TIN 1 NHÂN VIÊN
+          +Tìm nhân viên theo mã - findByID(node head, const string& id)
+          +Thấy-> Gọi lại hàm nhập (bỏ qua nhập id), cập nhật lại dl */
+//Hàm nhập lại thông tin nhân viên bỏ qua nhập id
+Employee inputEmpNOID(node &a)
+{
+       Employee e;
+       //Nhap ho ten
+       cout << "Enter full name: ";
+       getline(cin, e.name);
+       //Nhap ngay sinh
+       string birth;
+       do {
+        cout << "Enter birthdate (dd/mm/yyyy): ";
+        getline(cin, birth);
+
+       if (!checkDate(birth)) {
+        cout << "Error: Invalid!\n";
+            }
+       } while (!checkDate(birth));
+
+       sscanf(birth.c_str(), "%d/%d/%d", &e.birthDate.day, &e.birthDate.month, &e.birthDate.year);
+
+       //Nhap email
+       cout << "Enter email: "; getline(cin, e.email);
+       //Nhap dia chi
+       cout << "Enter address: "; getline(cin, e.address);
+       //Nhap sdt
+       do{
+              cout << "Enter phone number: "; getline(cin, e.phone);
+              if(!checkPhone(e.phone))
+              {
+                     cout << "Error: Invalid!\n";
+              }
+       } while(!checkPhone(e.phone));
+       //Nhap ngay cong
+       do {
+              cout << "Enter working days: ";
+              cin >> e.workingDays;
+              if (!checkWage(e.workingDays)) {
+                     cout << "Error: Working days must be between 0 and 31!\n";
+              }
+         } while (!checkWage(e.workingDays));
+       //Nhap ngay luong
+       do {
+             cout << "Enter daily salary: ";
+             cin >> e.dailySalary;
+             if (!checkWage(e.dailySalary)) {
+                    cout << "Error: Daily salary must be greater than 0!\n";
+             }
+       } while (!checkWage(e.dailySalary));
+
+
+
+       cin.ignore(); // Xóa \n còn trong bộ đệm
+       cout << "Total income: " << e.workingDays * e.dailySalary << endl;
+       return e;
+}
+void editEmp(node &head)
+{
+       string id;
+       cout << "Enter employee code to edit: "; getline(cin, id);
+
+       node p = findByID(head, id);
+       if(p == NULL)
+       {
+              cout << "Not found!\n";
+              return;
+       }
+
+       //-NHẬP LẠI THÔNG TIN(bỏ qua id)
+       cout << "EDITTING EMPLOYEE WITH ID: " << id << endl;
+       Employee newData = inputEmpNOID(head);
+       newData.employeeID = p->data.employeeID; // giữ id cũ
+       p->data = newData; //gán lại dữ liệu
+       display_an_employee(newData);
+       cout << "Updated successfully!\n";
+}
+
+
 
 // Tìm theo tên
-void findByName(node head, string name) {
+void findByName(node &head, string name) {
     string target = standardize(name);
     node p = head;
     bool found = false;
@@ -422,7 +531,7 @@ void findByName(node head, string name) {
 }
 
 // Xuất danh sách nhân viên có thực lĩnh thấp nhất
-void displayLowestSalary(Node* head) {
+void displayLowestSalary(node &head) {
     if (head == NULL) {
         cout << "Danh sách rỗng.\n";
         return;
@@ -454,7 +563,7 @@ void displayLowestSalary(Node* head) {
 }
 
 // Sắp xếp danh sách nhân viên giảm dần theo thực lĩnh -- Dùng Bubble Sort
-void sortBySalaryDesc(Node*& head)
+void sortBySalaryDesc(node &head)
 {
 	if (head == NULL || head->next == NULL) {
 		return; // Danh sách rỗng hoặc chỉ có một phần tử
@@ -474,7 +583,7 @@ void sortBySalaryDesc(Node*& head)
 }
 
 // Khung menu chính
-void menu(Node*& head)
+void menu(node &head)
 {
     int choice;
     do {
@@ -534,3 +643,20 @@ void menu(Node*& head)
         }
     } while (choice != 0);
 }
+
+//giải phóng bộ nhớ
+void deleteFirst(node &a){
+	if(a == NULL) return;
+	a = a->next;
+	delete a;
+}
+
+void clean(node a)
+{
+    while (a != NULL) {
+        Node* temp = a;
+        a = a->next;
+        delete temp;
+    }
+}
+

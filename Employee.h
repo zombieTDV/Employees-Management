@@ -29,8 +29,3 @@ struct Node
     Employee data;
     Node* next;
 };
-// thêm List để quản lý danh sách
-struct LIST
-{
-       Node *head; //con trỏ đầu danh sách
-};

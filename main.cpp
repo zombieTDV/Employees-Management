@@ -2,15 +2,23 @@
 
 
 int main(){
-    Node* head = NULL;
-    LIST l1;
-    l1.head = NULL;
+    Node *head = NULL;
     //menu(head);
+    head = new Node{{"E001","Alice",{1,1,1990},"alice@mail.com","123 Street","0123456789",20,100.0f}, nullptr};
     string S = "  nguyen  VAN   aN   ";
     S = standardize(S);
     cout << S << '\n';
-    addEmp(l1);
-    deleteID(l1);
-    display(l1);
+    cout << "   THEM MOI NV" << endl;
+    addEmp(head);
+
+    //cout << "   XOA NV THEO ID" << endl;
+    //deleteID(head);
+
+    //cout << "   SUA INFO NHAN VIEN" << endl;
+    editEmp(head);
+
+    display(head);
+
+    clean(head);
     return 0;
 }
