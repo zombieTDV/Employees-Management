@@ -67,10 +67,10 @@ string standardize(string s) {
     s.clear(); //xóa chuỗi s -> s trống
 
     while (ss >> word) {           // stringstream ss tự động bỏ qua 'tất cả' khoảng trống (space) và lấy ra từng từ liên tiếp.
-        word[0] = toupper(word[0]); //Viết hoa chữ cái đầu của họ tên, CHỈ THÍCH HỢP KHI DÙNG ĐỂ CHUẨN HÓA HỌ VÀ TÊN!
         for (size_t i = 1; i < word.size(); i++) {
-        word[i] = tolower(word[i]); 
+            word[i] = tolower(word[i]); 
         }
+        word[0] = toupper(word[0]); //Viết hoa chữ cái đầu của họ tên, CHỈ THÍCH HỢP KHI DÙNG ĐỂ CHUẨN HÓA HỌ VÀ TÊN!
         if (!s.empty()) {
             s += ' '; // kiểm tra s có trống? Nếu không, nghĩa là s không phải đầu chuỗi -> thêm khoảng trắng
         }
