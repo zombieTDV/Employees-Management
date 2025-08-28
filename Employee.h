@@ -24,3 +24,13 @@ struct Employee
     float dailySalary;
     //float netSalary: t bỏ cái này nha, biến này chỉ dùng để tính kh cần khai báo
 };
+struct Node
+{
+    Employee data;
+    Node* next;
+};
+// thêm List để quản lý danh sách
+struct LIST
+{
+       Node *head; //con trỏ đầu danh sách
+};

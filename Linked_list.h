@@ -5,11 +5,7 @@
 
 using namespace std;
 
-struct Node
-{
-    Employee data;
-    Node* next;
-};
+
 typedef Node* node;
 
 Node* createNode(Employee emp)
@@ -49,16 +45,14 @@ void display_an_employee(Employee emp)
        cout << "Daily wage: " << emp.dailySalary << endl;
        cout << "Total income: " << emp.workingDays*emp.dailySalary << endl;
 }
-void display(Node* head)
-{
-       Node* p = head;
-       while( p != NULL)
-       {
-              display_an_employee(p->data);
-              p = p->next;
-       }
-}
 
+void display(LIST& list) {
+    Node* p = list.head;
+    while (p != NULL) {
+        display_an_employee(p->data); // Gọi hàm để in thông tin một nhân viên
+        p = p->next;
+    }
+}
 
 // chuẩn hoá
 string standardize(string s) {
@@ -68,7 +62,7 @@ string standardize(string s) {
 
     while (ss >> word) {           // stringstream ss tự động bỏ qua 'tất cả' khoảng trống (space) và lấy ra từng từ liên tiếp.
         for (size_t i = 1; i < word.size(); i++) {
-            word[i] = tolower(word[i]); 
+            word[i] = tolower(word[i]);
         }
         word[0] = toupper(word[0]); //Viết hoa chữ cái đầu của họ tên, CHỈ THÍCH HỢP KHI DÙNG ĐỂ CHUẨN HÓA HỌ VÀ TÊN!
         if (!s.empty()) {
@@ -159,7 +153,41 @@ void findByID(node head, const string& employeeId) {
         cout << "There is no employee with that ID: " << employeeId << endl;
     };
 }
-
+/*(9). XÓA 1 NHÂN VIÊN THEO MÃ
+   9.1. Hàm trả về thêm thông tin node đứng trước node cần tìm( hỗ trợ thao tác xóa )
+   9.2. Hàm xóa nv */
+node searchID2(LIST l,node &q, string id)
+{
+       node p = l.head;
+       q = NULL;
+       while(p != NULL)
+       {
+              if(p->data.employeeID == id)
+                     break;
+              q = p; //lưu node đứng trước
+              p = p->next; //nhảy tới node tiếp theo
+       }
+       return p;
+}
+void deleteID(LIST &l)
+{
+       string x;
+       cout << "Enter the employee ID to search: "; getline(cin, x);
+       node q = NULL;
+       node p = searchID2(l, q, x);
+       if(p == NULL)
+       {
+              cout << "Not found!\n";
+              return;
+       }
+       if(q != NULL){
+              q->next = p->next;
+       } else {
+              l.head = p->next;
+       }
+       cout << "Successfully deleted!\n";
+       display(l);
+}
 /* (10). Thêm mới nhân viên
    10.1. Hàm ktra dl
    10.2. Hàm thêm ptu vào đầu, cuối, giữa
@@ -297,7 +325,8 @@ Employee inputEmp(Node * head)
               }
        } while (!checkID(head, e.employeeID));
        //Nhap ho ten
-              cout << "Enter full name: ";getline(cin, e.name);
+              cout << "Enter full name: ";
+              getline(cin, e.name);
        //Nhap ngay sinh
        string birth;
        do {
@@ -339,9 +368,9 @@ Employee inputEmp(Node * head)
        return e;
 }
 //10.4. Thêm nhân viên vào danh sách
-void addEmp(Node* &head)
+void addEmp(LIST &l)
 {
-       Employee e = inputEmp(head);
+       Employee e = inputEmp(l.head);
        //menu vtri chen
        while(1){
               cout << "\nWHERE DO YOU WANT TO INSERT THE NEW EMPLOYEE ?\n";
@@ -354,18 +383,18 @@ void addEmp(Node* &head)
 
               if(choice == 1)
               {
-                     insertFirst(head, e);
+                     insertFirst(l.head, e);
                      break;
               }
                else if(choice == 2)
               {
-                     insertLast(head, e);
+                     insertLast(l.head, e);
                      break;
               }
               else if(choice == 3)
               {
                      int pos; cout << "Enter the position to insert: "; cin >> pos;
-                     insertMiddle(head, e, pos);
+                     insertMiddle(l.head, e, pos);
                      break;
               }
               else {
@@ -425,7 +454,7 @@ void displayLowestSalary(Node* head) {
 }
 
 // Sắp xếp danh sách nhân viên giảm dần theo thực lĩnh -- Dùng Bubble Sort
-void sortBySalaryDesc(Node*& head) 
+void sortBySalaryDesc(Node*& head)
 {
 	if (head == NULL || head->next == NULL) {
 		return; // Danh sách rỗng hoặc chỉ có một phần tử
@@ -445,7 +474,7 @@ void sortBySalaryDesc(Node*& head)
 }
 
 // Khung menu chính
-void menu(Node*& head) 
+void menu(Node*& head)
 {
     int choice;
     do {

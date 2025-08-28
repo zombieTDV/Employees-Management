@@ -3,10 +3,14 @@
 
 int main(){
     Node* head = NULL;
-    menu(head);
+    LIST l1;
+    l1.head = NULL;
+    //menu(head);
     string S = "  nguyen  VAN   aN   ";
     S = standardize(S);
     cout << S << '\n';
-    // addEmp(head);
+    addEmp(l1);
+    deleteID(l1);
+    display(l1);
     return 0;
 }
