@@ -391,3 +391,117 @@ void findByName(node head, string name) {
         cout << "There is no employee with that name: " << target << endl;
     }
 }
+
+// Xuất danh sách nhân viên có thực lĩnh thấp nhất
+void displayLowestSalary(Node* head) {
+    if (head == NULL) {
+        cout << "Danh sách rỗng.\n";
+        return;
+    }
+
+    float minSalary = head->data.workingDays * head->data.dailySalary;
+    Node* p = head->next;
+
+    // Tìm mức lương thấp nhất
+    while (p != NULL) {
+        float salary = p->data.workingDays * p->data.dailySalary;
+        if (salary < minSalary) {
+            minSalary = salary;
+        }
+        p = p->next;
+    }
+
+// In ra các nhân viên có mức lương thấp nhất
+    cout << "\nEmployees with the lowest net salary::\n";
+    p = head;
+    while (p != NULL) {
+        float salary = p->data.workingDays * p->data.dailySalary;
+        if (salary == minSalary) {
+            display_an_employee(p->data);
+            cout << "----------------------\n";
+        }
+        p = p->next;
+    }
+}
+
+// Sắp xếp danh sách nhân viên giảm dần theo thực lĩnh -- Dùng Bubble Sort
+void sortBySalaryDesc(Node*& head) 
+{
+	if (head == NULL || head->next == NULL) {
+		return; // Danh sách rỗng hoặc chỉ có một phần tử
+	}
+	for (Node* i = head; i != NULL; i = i->next) {
+		for (Node* j = i->next; j != NULL; j = j->next) {
+			float salaryI = i->data.workingDays * i->data.dailySalary;
+			float salaryJ = j->data.workingDays * j->data.dailySalary;
+
+            if (salaryI < salaryJ) {
+                Employee temp = i->data;
+                i->data = j->data;
+                j->data = temp;
+            }
+		}
+	}
+}
+
+// Khung menu chính
+void menu(Node*& head) 
+{
+    int choice;
+    do {
+        cout << "\n========== MENU QUẢN LÝ NHÂN VIÊN ==========\n";
+        cout << "1. Nhập danh sách nhân viên từ bàn phím\n";
+        cout << "2. Đọc danh sách nhân viên từ file\n";
+        cout << "3. Xuất danh sách nhân viên ra màn hình\n";
+        cout << "4. Ghi danh sách nhân viên ra file\n";
+        cout << "5. Tìm nhân viên theo mã\n";
+        cout << "6. Tìm nhân viên theo tên (không phân biệt hoa thường)\n";
+        cout << "7. Xuất nhân viên có thực lĩnh thấp nhất\n";
+        cout << "8. Sắp xếp danh sách giảm dần theo thực lĩnh\n";
+        cout << "9. Xóa nhân viên theo mã\n";
+        cout << "10. Thêm mới nhân viên\n";
+        cout << "11. Sửa thông tin nhân viên\n";
+        cout << "0. Thoát\n";
+        cout << "==============================================\n";
+        cout << "Chọn chức năng: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5: {
+            break;
+        }
+        case 6: {
+            break;
+        }
+        case 7:
+            displayLowestSalary(head);
+            break;
+        case 8:
+            sortBySalaryDesc(head);
+            cout << "The employee list has been sorted in descending order by net salary.\n";
+            break;
+        case 9: {
+            break;
+        }
+        case 10:
+            break;
+        case 11: {
+            break;
+        }
+        case 0:
+            cout << "Program exited.\n";
+            break;
+        default:
+            cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 0);
+}
