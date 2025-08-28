@@ -61,7 +61,7 @@ void display(Node* head)
 
 
 // chuẩn hoá
-string standardize(string s) {
+string standardize(string& s) {
     stringstream ss(s);
     string word;
     s.clear(); //xóa chuỗi s -> s trống
