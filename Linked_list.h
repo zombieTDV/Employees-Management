@@ -538,7 +538,7 @@ void findByName(node &head, string name) {
 // Xuất danh sách nhân viên có thực lĩnh thấp nhất
 void displayLowestSalary(node &head) {
     if (head == NULL) {
-        cout << "Danh sách rỗng.\n";
+        cout << "Empty list\n";
         return;
     }
 
@@ -554,7 +554,7 @@ void displayLowestSalary(node &head) {
         p = p->next;
     }
 
-// In ra các nhân viên có mức lương thấp nhất
+    // In ra các nhân viên có mức lương thấp nhất
     cout << "\nEmployees with the lowest net salary::\n";
     p = head;
     while (p != NULL) {
