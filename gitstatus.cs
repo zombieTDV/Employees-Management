@@ -1,5 +1,3 @@
-﻿#pragma once
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -34,7 +32,7 @@ struct list
     NODE* pTail;
 };
 typedef struct list List;
-NODE* initialize the list(Employee x)
+NODE* initializelist(Employee x)
 {
     NODE* p = new NODE;
     if (p == NULL)
@@ -43,10 +41,10 @@ NODE* initialize the list(Employee x)
         return NULL;
     }
     p->data = x;
-    p->pNEXT = NULL;
+    p->pNext = NULL;
     return p;
 }
-void read Employee(ifstream &filein, Employee &employee)
+void readEmployee(ifstream &filein, Employee &employee)
 {
     filein >> employee.employeeID;
     filein >> emplyee.lastName;
@@ -58,7 +56,7 @@ void read Employee(ifstream &filein, Employee &employee)
     filein >> emplyee.dailySalary;
     filein >> emplyee.netSalary;
 }
-void date(ifstream &filein, date Date)
+void readDate(ifstream &filein, Date &date)
 {
     filein >> Date.day;
     filein.seekg(1, 1);
@@ -69,14 +67,11 @@ void date(ifstream &filein, date Date)
 Employee InputEmployee()
 {
     Employee emp;
-    cout << "Enter employee ID: ";
-    getline(cin, emp.employeeID);
-    cout << "Enter last name: ";
-    getline(cin, emp.lastName);
-    cout << "Enter first name: ";
-    getline(cin, emp.firstName);
-    cout << "Enter birth date: ";
-    getline(cin, emp.birthDate);
+    cout << "Enter full name: ";
+    getline(cin, emp.name)
+    cout << "Enter birth date (dd mm yyyy): ";
+    cin >> emp.birthDate.day >> emp.birthDate.month >> emp.birthDate.year;
+    cin.ignore();
     cout << "Enter email: ";
     getline(cin, emp.email);
     cout << "Enter address: ";
