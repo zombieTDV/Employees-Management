@@ -6,6 +6,11 @@
 
 using namespace std;
 
+struct Node
+{
+    Employee data;
+    Node* next;
+};
 
 typedef Node* node;
 
