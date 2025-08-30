@@ -428,6 +428,7 @@ void addEmp(node &head)
               else if(choice == 3)
               {
                      int pos; cout << "Enter the position to insert: "; cin >> pos;
+                     cin.ignore();
                      insertMiddle(head, e, pos);
                      break;
               }
