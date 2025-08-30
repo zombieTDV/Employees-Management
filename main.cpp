@@ -9,5 +9,6 @@ int main(){
     // S = standardize(S);
     // cout << S << '\n';
     // cout << "   THEM MOI NV" << endl;
+    clean(head);
     return 0;
 }
