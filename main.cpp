@@ -3,7 +3,7 @@
 
 int main(){
     Node *head = NULL;
-    //menu(head);
+    menu(head);
     head = new Node{{"E001","Alice",{1,1,1990},"alice@mail.com","123 Street","0123456789",20,100.0f}, nullptr};
     string S = "  nguyen  VAN   aN   ";
     S = standardize(S);

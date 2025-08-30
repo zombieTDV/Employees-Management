@@ -592,21 +592,21 @@ void menu(node &head)
 {
     int choice;
     do {
-        cout << "\n========== MENU QUẢN LÝ NHÂN VIÊN ==========\n";
-        cout << "1. Nhập danh sách nhân viên từ bàn phím\n";
-        cout << "2. Đọc danh sách nhân viên từ file\n";
-        cout << "3. Xuất danh sách nhân viên ra màn hình\n";
-        cout << "4. Ghi danh sách nhân viên ra file\n";
-        cout << "5. Tìm nhân viên theo mã\n";
-        cout << "6. Tìm nhân viên theo tên (không phân biệt hoa thường)\n";
-        cout << "7. Xuất nhân viên có thực lĩnh thấp nhất\n";
-        cout << "8. Sắp xếp danh sách giảm dần theo thực lĩnh\n";
-        cout << "9. Xóa nhân viên theo mã\n";
-        cout << "10. Thêm mới nhân viên\n";
-        cout << "11. Sửa thông tin nhân viên\n";
-        cout << "0. Thoát\n";
+        cout << "\n========== EMPLOYEE MANAGEMENT MENU ==========\n";
+        cout << "1. Enter employee list from keyboard\n";
+        cout << "2. Read employee list from file\n";
+        cout << "3. Display employee list on screen\n";
+        cout << "4. Save employee list to file\n";
+        cout << "5. Find employee by ID\n";
+        cout << "6. Find employee by name (case-insensitive)\n";
+        cout << "7. Display employee with the lowest net salary\n";
+        cout << "8. Sort list in descending order by net salary\n";
+        cout << "9. Delete employee by ID\n";
+        cout << "10. Add new employee\n";
+        cout << "11. Edit employee information\n";
+        cout << "0. Exit\n";
         cout << "==============================================\n";
-        cout << "Chọn chức năng: ";
+        cout << "Select a function: ";
         cin >> choice;
         cin.ignore();
 
