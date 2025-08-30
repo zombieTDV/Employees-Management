@@ -592,18 +592,18 @@ void sortBySalaryDesc(node &head)
 }
 
 //giải phóng bộ nhớ
-void deleteFirst(node &a){
-	if(a == NULL) return;
-	a = a->next;
-	delete a;
+void deleteFirst(node& a) {
+    if (a == NULL) return;
+    Node* temp = a;      // lưu node đầu
+    a = a->next;         // up mới head
+    delete temp;         
 }
 
-void clean(node a)
-{
-    while (a != NULL) {
-        Node* temp = a;
-        a = a->next;
-        delete temp;
+void clean(node& a) {
+    while (a != NULL) 
+    {
+        deleteFirst(a);   // dùng lại hàm deleteFirst luôn 
     }
 }
+
 
