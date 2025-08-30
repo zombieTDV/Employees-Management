@@ -321,7 +321,8 @@ void insertLast(Node* &a, Employee x){
 void insertMiddle(Node* &a, Employee x, int pos){
 	int n = Size(a);
 	if(pos <= 0 || pos > n + 1){
-		cout << "Vi tri them khong hop le !\n";
+		cout << "Invalid insertion pos!\n";
+        return;
 	}
 	if(pos == 1){
 		insertFirst(a, x); return;
