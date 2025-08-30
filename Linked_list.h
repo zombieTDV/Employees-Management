@@ -610,77 +610,77 @@ void menu(node &head)
         cin >> choice;
         cin.ignore();
 
-        switch (choice) {
-        case 1: {
-            int n;
-            cout << "Nhập số lượng nhân viên: ";
-            cin >> n;
-            cin.ignore();
-            for (int i = 0; i < n; i++) {
-                cout << "\n--- Nhân viên " << i + 1 << " ---\n";
-                addEmp(head);
-            }
-            break;
-        }
-        case 2: {
-            string filename;
-            cout << "Nhập tên file để đọc: ";
-            getline(cin, filename);
-            head = readListFromFile(filename);
-            break;
-        }
-        case 3:
-            display(head);
-            break;
-        case 4: {
-            string filename;
-            cout << "Nhập tên file để ghi: ";
-            getline(cin, filename);
-            writeListToFile(head, filename);
-            cout << "Đã ghi file thành công!\n";
-            break;
-        }
-        case 5: {
-            string id;
-            cout << "Nhập mã nhân viên cần tìm: ";
-            getline(cin, id);
-            node p = findByID(head, id);
-            if (p != NULL)
-                display_an_employee(p->data);
-            else
-                cout << "Không tìm thấy!\n";
-            break;
-        }
-        case 6: {
-            string name;
-            cout << "Nhập tên nhân viên cần tìm: ";
-            getline(cin, name);
-            findByName(head, name);
-            break;
-        }
-        case 7:
-            displayLowestSalary(head);
-            break;
-        case 8:
-            sortBySalaryDesc(head);
-            cout << "Đã sắp xếp giảm dần theo thực lĩnh.\n";
-            break;
-        case 9:
-            deleteID(head);
-            break;
-        case 10:
+switch (choice) {
+    case 1: {
+        int n;
+        cout << "Enter number of employees: ";
+        cin >> n;
+        cin.ignore();
+        for (int i = 0; i < n; i++) {
+            cout << "\n--- Employee " << i + 1 << " ---\n";
             addEmp(head);
-            break;
-        case 11:
-            editEmp(head);
-            break;
-        case 0:
-            cout << "Thoát chương trình.\n";
-            break;
-        default:
-            cout << "Lựa chọn không hợp lệ, vui lòng thử lại.\n";
         }
-    } while (choice != 0);
+        break;
+    }
+    case 2: {
+        string filename;
+        cout << "Enter filename to read: ";
+        getline(cin, filename);
+        head = readListFromFile(filename);
+        break;
+    }
+    case 3:
+        display(head);
+        break;
+    case 4: {
+        string filename;
+        cout << "Enter filename to write: ";
+        getline(cin, filename);
+        writeListToFile(head, filename);
+        cout << "File written successfully!\n";
+        break;
+    }
+    case 5: {
+        string id;
+        cout << "Enter employee ID to search: ";
+        getline(cin, id);
+        node p = findByID(head, id);
+        if (p != NULL)
+            display_an_employee(p->data);
+        else
+            cout << "Not found!\n";
+        break;
+    }
+    case 6: {
+        string name;
+        cout << "Enter employee name to search: ";
+        getline(cin, name);
+        findByName(head, name);
+        break;
+    }
+    case 7:
+        displayLowestSalary(head);
+        break;
+    case 8:
+        sortBySalaryDesc(head);
+        cout << "Sorted in descending order by net salary.\n";
+        break;
+    case 9:
+        deleteID(head);
+        break;
+    case 10:
+        addEmp(head);
+        break;
+    case 11:
+        editEmp(head);
+        break;
+    case 0:
+        cout << "Exiting program.\n";
+        break;
+    default:
+        cout << "Invalid choice, please try again.\n";
+        }
+    }while (choice != 0);
 }
 
 //giải phóng bộ nhớ
