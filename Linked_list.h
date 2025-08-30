@@ -140,7 +140,7 @@ Node* readListFromFile(const string& filename) {
     while (true) { //Khởi tạo dữ liệu Nhân Viên, đọc lần lượt các dòng từ file .txt và đặc các thuộc tính cho nhân viên
         Employee emp;
         if (!getline(in, emp.employeeID)){
-            cout << "Error when read from file." << '\n';
+            cout << "Ends of file." << '\n';
             break;
         };
         getline(in, emp.name);
@@ -444,7 +444,7 @@ void addEmp(node &head)
 //Hàm nhập lại thông tin nhân viên bỏ qua nhập id
 Employee inputEmpNOID(node &a)
 {
-       Employee e;
+       Employee e = a->data;
        //Nhap ho ten
        cout << "Enter full name: ";
        getline(cin, e.name);

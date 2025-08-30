@@ -9,16 +9,5 @@ int main(){
     // S = standardize(S);
     // cout << S << '\n';
     // cout << "   THEM MOI NV" << endl;
-    addEmp(head);
-
-    //cout << "   XOA NV THEO ID" << endl;
-    //deleteID(head);
-
-    //cout << "   SUA INFO NHAN VIEN" << endl;
-    editEmp(head);
-
-    display(head);
-
-    clean(head);
     return 0;
 }
