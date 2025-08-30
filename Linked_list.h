@@ -353,6 +353,7 @@ Employee inputEmp(node a)
        //Nhap ho ten
        cout << "Enter full name: ";
        getline(cin, e.name);
+       e.name = standardize(e.name);
        //Nhap ngay sinh
        string birth;
        do {
@@ -370,6 +371,7 @@ Employee inputEmp(node a)
        cout << "Enter email: "; getline(cin, e.email);
        //Nhap dia chi
        cout << "Enter address: "; getline(cin, e.address);
+       e.address = standardize(e.address);
        //Nhap sdt
        do{
               cout << "Enter phone number: "; getline(cin, e.phone);
@@ -405,7 +407,6 @@ Employee inputEmp(node a)
 void addEmp(node &head)
 {
        Employee e = inputEmp(head);
-       //menu vtri chen
        while(1){
               cout << "\nWHERE DO YOU WANT TO INSERT THE NEW EMPLOYEE ?\n";
               cout << "1. Beginning of the list\n";
@@ -448,6 +449,7 @@ Employee inputEmpNOID(node &a)
        //Nhap ho ten
        cout << "Enter full name: ";
        getline(cin, e.name);
+       e.name = standardize(e.name);
        //Nhap ngay sinh
        string birth;
        do {
@@ -465,6 +467,7 @@ Employee inputEmpNOID(node &a)
        cout << "Enter email: "; getline(cin, e.email);
        //Nhap dia chi
        cout << "Enter address: "; getline(cin, e.address);
+       e.address = standardize(e.address);
        //Nhap sdt
        do{
               cout << "Enter phone number: "; getline(cin, e.phone);

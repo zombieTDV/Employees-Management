@@ -1,16 +1,16 @@
-E001
-Alice
-1 1 1990
-alice@mail.com
-123 Street
-0123456789
-20
-100
-E002
-Bob
-2 2 1992
-bob@mail.com
-456 Avenue
-0987654321
-18
-120
+E03
+Nghia
+29 3 1999
+nghia@
+Hp
+0284028364
+6
+12
+E02
+Cong Tuan
+21 4 2000
+tuan@
+Hcm
+0283047392
+4
+12
