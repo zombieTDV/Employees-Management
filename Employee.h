@@ -22,5 +22,4 @@ struct Employee
     string phone;
     int workingDays;
     float dailySalary;
-    //float netSalary: t bỏ cái này nha, biến này chỉ dùng để tính kh cần khai báo
 };
