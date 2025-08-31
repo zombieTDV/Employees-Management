@@ -36,55 +36,6 @@ int Size(node a){
 	return cnt;
 }
 
-
-
-//in dl ra màn hình cua 1 nv
-void display_an_employee(Employee emp)
-{
-       cout << "Employee code: " << emp.employeeID << endl;
-       cout << "Employee name: " << emp.name << endl;
-       cout << "Date of birth: " << emp.birthDate.day << "/" << emp.birthDate.month << "/" << emp.birthDate.year << endl;
-       cout << "Email: " << emp.email << endl;
-       cout << "Contact address: " << emp.address << endl;
-       cout << "Phone number: " << emp.phone << endl;
-       cout << "Number of working days per month: " << emp.workingDays << endl;
-       cout << "Daily wage: " << emp.dailySalary << endl;
-       cout << "Total income: " << emp.workingDays*emp.dailySalary << endl;
-}
-
-void display(node &head) {
-    if (head == NULL) {
-        cout << "Employee list is empty." << endl;
-        return;
-    }
-    cout << left << setw(10) << "Emp ID"
-         << left << setw(25) << "Full Name"
-         << left << setw(15) << "Birthdate"
-         << left << setw(25) << "Email"
-         << left << setw(25) << "Address"
-         << left << setw(15) << "Phone"
-         << left << setw(15) << "Work Days"
-         << left << setw(15) << "Daily wage"
-         << left << setw(15) << "Total income" << endl;
-    cout << setfill('-') << setw(165) << "" << setfill(' ') << endl;
-
-    node p = head;
-    while (p != NULL) {
-        cout << left << setw(10) << p->data.employeeID
-             << left << setw(25) << p->data.name
-             << left << setw(2) << p->data.birthDate.day << "/"
-             << left << setw(2) << p->data.birthDate.month << "/"
-             << left << setw(7) << p->data.birthDate.year
-             << left << setw(25) << p->data.email
-             << left << setw(25) << p->data.address
-             << left << setw(15) << p->data.phone
-             << left << setw(20) << p->data.workingDays
-             << left << setw(15) << p->data.dailySalary
-             << left << setw(15) << p->data.workingDays * p->data.dailySalary << endl;
-        p = p->next;
-    }
-}
-
 // chuẩn hoá
 string standardize(string s) {
     stringstream ss(s);
@@ -104,80 +55,6 @@ string standardize(string s) {
     return s;
 }
 
-//Ghi toàn bộ danh sách liên kết nhân viên ra file
-void writeListToFile(Node* head, const string& filename) {
-    ofstream out(filename);
-    if (!out) {
-        cerr << "Cannot open file for writing\n";
-        return;
-    }
-    for (Node* cur = head; cur != nullptr; cur = cur->next) { //Lần lượt đọc các thuộc tính của Các Node và viết vào các dòng của file txt
-        out << cur->data.employeeID << '\n'
-            << cur->data.name << '\n'
-            << cur->data.birthDate.day << ' '
-            << cur->data.birthDate.month << ' '
-            << cur->data.birthDate.year << '\n'
-            << cur->data.email << '\n'
-            << cur->data.address << '\n'
-            << cur->data.phone << '\n'
-            << cur->data.workingDays << '\n'
-            << cur->data.dailySalary << '\n';
-    }
-    out.close();
-}
-
-
-//Đọc dữ liệu từ file
-Node* readListFromFile(const string& filename) {
-    ifstream in(filename);
-    if (!in) {
-        cerr << "Cannot open file for reading\n";
-        return nullptr;
-    }
-    Node* head = nullptr; //Khởi tạo con trỏ vào Node đầu tiên
-    Node* pNode = nullptr; //Khởi tạo con trỏ cho để truy cập các Node dữ liệu.
-
-    while (true) { //Khởi tạo dữ liệu Nhân Viên, đọc lần lượt các dòng từ file .txt và đặc các thuộc tính cho nhân viên
-        Employee emp;
-        if (!getline(in, emp.employeeID)){
-            cout << "Ends of file." << '\n';
-            break;
-        };
-        getline(in, emp.name);
-        in >> emp.birthDate.day >> emp.birthDate.month >> emp.birthDate.year;
-        in.ignore();
-        getline(in, emp.email);
-        getline(in, emp.address);
-        getline(in, emp.phone);
-        in >> emp.workingDays;
-        in >> emp.dailySalary;
-        in.ignore();
-
-        Node* newNode = new Node{emp, nullptr}; //Tạo Node mới với dữ liệu nhân viên vừa đọc.
-        if (head == nullptr){
-            head = newNode;
-            pNode = newNode;
-        }
-        else{ //Đặt node->next = newNode và chuyển pNode = newNode
-            pNode->next = newNode;
-            pNode = newNode;
-        }
-
-    }
-    in.close();
-    return head;
-}
-// Tìm theo ID
-node findByID(node a, const string& id) {
-    node p = a;
-    while (p != NULL) {
-        if (p->data.employeeID == id) {
-            return p; //Trả về con trỏ
-        }
-        p = p->next;
-    }
-    return NULL;//kh tìm thấy
-}
 /*(9). XÓA 1 NHÂN VIÊN THEO MÃ
    9.1. Hàm trả về thêm thông tin node đứng trước node cần tìm( hỗ trợ thao tác xóa )
    9.2. Hàm xóa nv */
@@ -521,7 +398,17 @@ void editEmp(node &head)
        cout << "Updated successfully!\n";
 }
 
-
+// Tìm theo ID
+node findByID(node a, const string& id) {
+    node p = a;
+    while (p != NULL) {
+        if (p->data.employeeID == id) {
+            return p; //Trả về con trỏ
+        }
+        p = p->next;
+    }
+    return NULL;//kh tìm thấy
+}
 
 // Tìm theo tên
 void findByName(node &head, string name) {
@@ -539,6 +426,76 @@ void findByName(node &head, string name) {
         cout << "There is no employee with that name: " << target << endl;
     }
 }
+
+// Sắp xếp danh sách nhân viên giảm dần theo thực lĩnh -- Dùng Bubble Sort
+void sortBySalaryDesc(node &head)
+{
+	if (head == NULL || head->next == NULL) {
+		return; // Danh sách rỗng hoặc chỉ có một phần tử
+	}
+	for (Node* i = head; i != NULL; i = i->next) {
+		for (Node* j = i->next; j != NULL; j = j->next) {
+			float salaryI = i->data.workingDays * i->data.dailySalary;
+			float salaryJ = j->data.workingDays * j->data.dailySalary;
+
+            if (salaryI < salaryJ) {
+                Employee temp = i->data;
+                i->data = j->data;
+                j->data = temp;
+            }
+		}
+	}
+}
+
+//=================================
+
+//in dl ra màn hình cua 1 nv
+void display_an_employee(Employee emp)
+{
+       cout << "Employee code: " << emp.employeeID << endl;
+       cout << "Employee name: " << emp.name << endl;
+       cout << "Date of birth: " << emp.birthDate.day << "/" << emp.birthDate.month << "/" << emp.birthDate.year << endl;
+       cout << "Email: " << emp.email << endl;
+       cout << "Contact address: " << emp.address << endl;
+       cout << "Phone number: " << emp.phone << endl;
+       cout << "Number of working days per month: " << emp.workingDays << endl;
+       cout << "Daily wage: " << emp.dailySalary << endl;
+       cout << "Total income: " << emp.workingDays*emp.dailySalary << endl;
+}
+
+void display(node &head) {
+    if (head == NULL) {
+        cout << "Employee list is empty." << endl;
+        return;
+    }
+    cout << left << setw(10) << "Emp ID"
+         << left << setw(25) << "Full Name"
+         << left << setw(15) << "Birthdate"
+         << left << setw(25) << "Email"
+         << left << setw(25) << "Address"
+         << left << setw(15) << "Phone"
+         << left << setw(15) << "Work Days"
+         << left << setw(15) << "Daily wage"
+         << left << setw(15) << "Total income" << endl;
+    cout << setfill('-') << setw(165) << "" << setfill(' ') << endl;
+
+    node p = head;
+    while (p != NULL) {
+        cout << left << setw(10) << p->data.employeeID
+             << left << setw(25) << p->data.name
+             << left << setw(2) << p->data.birthDate.day << "/"
+             << left << setw(2) << p->data.birthDate.month << "/"
+             << left << setw(7) << p->data.birthDate.year
+             << left << setw(25) << p->data.email
+             << left << setw(25) << p->data.address
+             << left << setw(15) << p->data.phone
+             << left << setw(20) << p->data.workingDays
+             << left << setw(15) << p->data.dailySalary
+             << left << setw(15) << p->data.workingDays * p->data.dailySalary << endl;
+        p = p->next;
+    }
+}
+
 
 // Xuất danh sách nhân viên có thực lĩnh thấp nhất
 void displayLowestSalary(node &head) {
@@ -572,25 +529,8 @@ void displayLowestSalary(node &head) {
     }
 }
 
-// Sắp xếp danh sách nhân viên giảm dần theo thực lĩnh -- Dùng Bubble Sort
-void sortBySalaryDesc(node &head)
-{
-	if (head == NULL || head->next == NULL) {
-		return; // Danh sách rỗng hoặc chỉ có một phần tử
-	}
-	for (Node* i = head; i != NULL; i = i->next) {
-		for (Node* j = i->next; j != NULL; j = j->next) {
-			float salaryI = i->data.workingDays * i->data.dailySalary;
-			float salaryJ = j->data.workingDays * j->data.dailySalary;
 
-            if (salaryI < salaryJ) {
-                Employee temp = i->data;
-                i->data = j->data;
-                j->data = temp;
-            }
-		}
-	}
-}
+//=================================
 
 //giải phóng bộ nhớ
 void deleteFirst(node& a) {
@@ -607,4 +547,67 @@ void clean(node& a) {
     }
 }
 
+//=================================
+//Ghi toàn bộ danh sách liên kết nhân viên ra file
+void writeListToFile(Node* head, const string& filename) {
+    ofstream out(filename);
+    if (!out) {
+        cerr << "Cannot open file for writing\n";
+        return;
+    }
+    for (Node* cur = head; cur != nullptr; cur = cur->next) { //Lần lượt đọc các thuộc tính của Các Node và viết vào các dòng của file txt
+        out << cur->data.employeeID << '\n'
+            << cur->data.name << '\n'
+            << cur->data.birthDate.day << ' '
+            << cur->data.birthDate.month << ' '
+            << cur->data.birthDate.year << '\n'
+            << cur->data.email << '\n'
+            << cur->data.address << '\n'
+            << cur->data.phone << '\n'
+            << cur->data.workingDays << '\n'
+            << cur->data.dailySalary << '\n';
+    }
+    out.close();
+}
 
+
+//Đọc dữ liệu từ file
+Node* readListFromFile(const string& filename) {
+    ifstream in(filename);
+    if (!in) {
+        cerr << "Cannot open file for reading\n";
+        return nullptr;
+    }
+    Node* head = nullptr; //Khởi tạo con trỏ vào Node đầu tiên
+    Node* pNode = nullptr; //Khởi tạo con trỏ cho để truy cập các Node dữ liệu.
+
+    while (true) { //Khởi tạo dữ liệu Nhân Viên, đọc lần lượt các dòng từ file .txt và đặc các thuộc tính cho nhân viên
+        Employee emp;
+        if (!getline(in, emp.employeeID)){
+            cout << "Ends of file." << '\n';
+            break;
+        };
+        getline(in, emp.name);
+        in >> emp.birthDate.day >> emp.birthDate.month >> emp.birthDate.year;
+        in.ignore();
+        getline(in, emp.email);
+        getline(in, emp.address);
+        getline(in, emp.phone);
+        in >> emp.workingDays;
+        in >> emp.dailySalary;
+        in.ignore();
+
+        Node* newNode = new Node{emp, nullptr}; //Tạo Node mới với dữ liệu nhân viên vừa đọc.
+        if (head == nullptr){
+            head = newNode;
+            pNode = newNode;
+        }
+        else{ //Đặt node->next = newNode và chuyển pNode = newNode
+            pNode->next = newNode;
+            pNode = newNode;
+        }
+
+    }
+    in.close();
+    return head;
+}
