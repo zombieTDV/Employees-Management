@@ -519,16 +519,16 @@ void addEmp(node &head)
                      break;
               }
               else {
-                     cout << "Invalid choice. Try again.\n"; break;
+                     cout << "Invalid choice. Try again.\n";
               }
        }
 
 }
 ////(11). Sửa thông tin 1 nhân viên
 //Hàm nhập lại thông tin nhân viên bỏ qua nhập id
-Employee inputEmpNOID(node &a)
+Employee inputEmpNOID()
 {
-       Employee e = inputEmp(a);
+       Employee e;
        //Nhap ho ten
        cout << "Enter full name: ";
        getline(cin, e.name);
@@ -596,7 +596,7 @@ void editEmp(node &head)
 
        //-NHẬP LẠI THÔNG TIN(bỏ qua id)
        cout << "EDITTING EMPLOYEE WITH ID: " << id << endl;
-       Employee newData = inputEmpNOID(head);
+       Employee newData = inputEmpNOID();
        newData.employeeID = p->data.employeeID; // giữ id cũ
        p->data = newData; //gán lại dữ liệu
        display_an_employee(newData);
