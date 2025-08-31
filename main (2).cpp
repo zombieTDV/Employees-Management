@@ -29,13 +29,12 @@ typedef Node* node;
 Node* createNode(Employee emp)
 {
     Node* p = new Node;
-    if (p == NULL)
-        return NULL;
+    if(p == NULL)
+       return p;
     p->data = emp;
     p->next = NULL;
     return p;
 }
-
 
 //kich thuoc của node
 int Size(node a){
@@ -259,7 +258,7 @@ void display_an_employee(Employee emp)
        cout << "Total income: " << emp.workingDays*emp.dailySalary << endl;
 }
 //xuất ra ds
-void display(node &head) {
+void display(node head) {
     if (head == NULL) {
         cout << "Employee list is empty." << endl;
         return;
@@ -331,16 +330,20 @@ node findByID(node a, const string& id) {
 
 
 ////(6). Tìm thông tin nhân viên theo tên không phân biệt hoa thường.
-node findByName(node head, string name) {
+void findByName(node &head, string name) {
     string target = standardize(name);
     node p = head;
+    bool found = false;
     while (p != NULL) {
         if (p->data.name == target) {  // so sánh tên chuẩn hoá
-            return p;
+            display_an_employee(p->data);
+            found = true;
         }
         p = p->next;
     }
-    return NULL;
+    if (!found) {
+        cout << "There is no employee with that name: " << target << endl;
+    }
 }
 
 
@@ -525,7 +528,7 @@ void addEmp(node &head)
 //Hàm nhập lại thông tin nhân viên bỏ qua nhập id
 Employee inputEmpNOID(node &a)
 {
-       Employee e = a->data;
+       Employee e = inputEmp(a);
        //Nhap ho ten
        cout << "Enter full name: ";
        getline(cin, e.name);
@@ -598,6 +601,7 @@ void editEmp(node &head)
        p->data = newData; //gán lại dữ liệu
        display_an_employee(newData);
        cout << "Updated successfully!\n";
+       display_an_employee(p->data);
 }
 
 
@@ -648,9 +652,9 @@ int main()
         cin.ignore();
         for (int i = 0; i < n; i++) {
             cout << "\n--- Employee " << i + 1 << " ---\n";
-            inputEmp(head);
+            Employee e = inputEmp(head);   // lấy dữ liệu nhập
+            insertLast(head, e);           // thêm vào danh sách
         }
-        insertLast(head, e);
         break;
     }
     case 2: {
@@ -676,10 +680,12 @@ int main()
         cout << "Enter employee ID to search: ";
         getline(cin, id);
         node p = findByID(head, id);
-        if (p != NULL)
+        if (p != NULL){
+            cout << "\n--- EMPLOYEE FOUND --- \n";
             display_an_employee(p->data);
-        else
+        } else {
             cout << "Not found!\n";
+        }
         break;
     }
     case 6: {
@@ -695,6 +701,7 @@ int main()
     case 8:
         sortBySalaryDesc(head);
         cout << "Sorted in descending order by net salary.\n";
+        display(head);
         break;
     case 9:
         deleteID(head);
