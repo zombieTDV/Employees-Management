@@ -618,6 +618,7 @@ void clean(node& a) {
 int main()
 {
     Node *head = NULL;
+    Employee e;
 
     int choice;
     do {
@@ -647,8 +648,9 @@ int main()
         cin.ignore();
         for (int i = 0; i < n; i++) {
             cout << "\n--- Employee " << i + 1 << " ---\n";
-            addEmp(head);
+            inputEmp(head);
         }
+        insertLast(head, e);
         break;
     }
     case 2: {
